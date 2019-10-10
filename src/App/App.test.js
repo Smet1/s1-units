@@ -8,6 +8,7 @@ import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
 describe('App component', () => {
+  // always orders (see mock.fakeOrders.js)
   const wrapper = shallow(<App/>);
 
   it('render with default state DATE', () => {
@@ -15,15 +16,34 @@ describe('App component', () => {
   });
 
   it('set state COUNT', () => {
-    // вариант 1
-    // wrapper.setState({sortType: sortTypes.COUNT});
-    // expect(toJson(wrapper)).toMatchSnapshot();
-
-    // вариант 2
     wrapper.find('select').simulate('change', {
       target: {value: sortTypes.COUNT}
     });
 
     expect(wrapper.state('sortType')).toEqual(sortTypes.COUNT);
+  });
+
+  it('set state DATE', () => {
+    wrapper.find('select').simulate('change', {
+      target: {value: sortTypes.DATE}
+    });
+
+    expect(wrapper.state('sortType')).toEqual(sortTypes.DATE);
+  });
+
+  it('set state ITEM_NAMES', () => {
+    wrapper.find('select').simulate('change', {
+      target: {value: sortTypes.ITEM_NAMES}
+    });
+
+    expect(wrapper.state('sortType')).toEqual(sortTypes.ITEM_NAMES);
+  });
+
+  it('set state KEK', () => {
+    wrapper.find('select').simulate('change', {
+      target: {value: sortTypes.undefined}
+    });
+
+    expect(wrapper.state('sortType')).toEqual(undefined);
   });
 });
